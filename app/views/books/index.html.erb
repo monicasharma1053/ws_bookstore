@@ -4,7 +4,6 @@
   <tr>
     <th>Title</th>
     <th>Author</th>
-    <th>Description</th>
     <th>Price</th>
     <th>Isbn</th>
     <th></th>
@@ -16,7 +15,6 @@
   <tr>
     <td><%= book.title %></td>
     <td><%= book.author %></td>
-    <td><%= book.description %></td>
     <td><%= book.price %></td>
     <td><%= book.isbn %></td>
     <td><%= link_to 'Show', book %></td>
@@ -28,4 +26,11 @@
 
 <br />
 
+
+<%= link_to 'Home', root_path, method: :get %>
+<% if params[:order_number] %>
+    <%= link_to 'Order Details', order_path(params[:order_number]) %>
+    <%= link_to 'All Orders', orders_path %>
+<% else %>
 <%= link_to 'New Book', new_book_path %>
+<% end %>

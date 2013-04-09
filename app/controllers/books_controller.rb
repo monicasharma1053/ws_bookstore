@@ -1,6 +1,41 @@
 class BooksController < ApplicationController
   # GET /books
   # GET /books.json
+  
+  def add
+    @order = Order.find(params[:order_number])
+    @book = Book.find(params[:book_number])
+    if @order.status == "shipped"
+      flash[:notice] = "Order already shipped."
+    else
+      @order.books << @book
+      flash[:notice] = "Book added to order!"
+    end
+
+    redirect_to order_books_browse_path(@order)
+  end
+
+  def remove
+    @order = Order.find(params[:order_number])
+    @book = Book.find(params[:book_number])
+    if @order.status == "shipped"
+      flash[:notice] = "Order already shipped."
+    else
+      flash[:notice] = "Book removed from order!"
+      Cart.find_by_order_number_and_book_number(@order.number, @book.number).destroy
+    end
+
+    redirect_to order_books_browse_path(@order)
+  end
+
+
+
+
+
+
+
+
+
   def index
     @books = Book.all
 
