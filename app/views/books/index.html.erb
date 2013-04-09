@@ -17,9 +17,16 @@
     <td><%= book.author %></td>
     <td><%= book.price %></td>
     <td><%= book.isbn %></td>
+    <% if @order %>
+    <td><%= link_to 'Remove', remove_book_path(@order, book), method: :post %></td>
+    <td><%= link_to 'Show', book %></td>
+    <td><%= link_to 'Edit', edit_book_path(book) %></td>
+    <% else %>
     <td><%= link_to 'Show', book %></td>
     <td><%= link_to 'Edit', edit_book_path(book) %></td>
     <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+
   </tr>
 <% end %>
 </table>
