@@ -38,6 +38,7 @@
 <% if params[:order_number] %>
     <%= link_to 'Order Details', order_path(params[:order_number]) %>
     <%= link_to 'All Orders', orders_path %>
+    <%= link_to 'Add Books', order_books_browse_path(params[:order_number]) %>
 <% else %>
 <%= link_to 'New Book', new_book_path %>
 <% end %>

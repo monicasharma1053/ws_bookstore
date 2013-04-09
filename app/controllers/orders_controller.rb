@@ -2,13 +2,23 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
 
+   def browse
+    @order = Order.find(params[:id])
+    @books = Book.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: [ @order, @books ] }
+    end
+  end
+
   def checkout
     @order = Order.find(params[:order_number])
-    if @order.books.empty>
-      flash[:notice] = "No books to ship"
+    if @order.books.empty?
+      flash[:notice] = "No books to ship!"
     else
       @order.status = "shipped" unless @order.status == "shipped"
-      flash[:notice] = "Books have shipped"
+      flash[:notice] = "Books are on their way!"
     end
 
     redirect_to orders_path if @order.save
