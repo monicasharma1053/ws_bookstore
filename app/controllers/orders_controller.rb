@@ -1,6 +1,19 @@
 class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
+
+  def checkout
+    @order = Order.find(params[:order_number])
+    if @order.books.empty>
+      flash[:notice] = "No books to ship"
+    else
+      @order.status = "shipped" unless @order.status == "shipped"
+      flash[:notice] = "Books have shipped"
+    end
+
+    redirect_to orders_path if @order.save
+  end
+
   def index
     @orders = Order.all
 
